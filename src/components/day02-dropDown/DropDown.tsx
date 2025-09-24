@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const items = [
   { id: 1, label: "메뉴 1" },
@@ -14,7 +15,23 @@ export default function DropDown() {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
-  console.log(isOpen, activeIndex);
+
+  const menuVariants = {
+    open: {
+      opacity: 1,
+      scaleY: 1,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    closed: {
+      opacity: 0,
+      scaleY: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
 
   const onBtnClick = () => {
     if (isOpen) {
@@ -116,29 +133,35 @@ export default function DropDown() {
         <span className="flex-1">MENU</span>
         <span className="mr-4">▼</span>
       </button>
-      {isOpen && (
-        <ul
-          ref={menuRef}
-          role="menu"
-          className="absolute top-full left-0 border border-gray-500 rounded-sm w-[200px]"
-          onKeyDown={onMenuKeyDown}
-        >
-          {items.map((item, i) => (
-            <li
-              key={item.id}
-              ref={(el) => {
-                itemRefs.current[i] = el;
-              }}
-              tabIndex={i === activeIndex ? 0 : -1}
-              role="menuitem"
-              className="py-2 px-4 focus:bg-gray-300 hover:bg-gray-300 cursor-pointer outline-none"
-              // onMouseEnter={() => setActiveIndex(i)}
-            >
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            ref={menuRef}
+            role="menu"
+            className="absolute top-full left-0 border border-gray-500 rounded-sm w-[200px] origin-top overflow-hidden"
+            onKeyDown={onMenuKeyDown}
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+          >
+            {items.map((item, i) => (
+              <li
+                key={item.id}
+                ref={(el) => {
+                  itemRefs.current[i] = el;
+                }}
+                tabIndex={i === activeIndex ? 0 : -1}
+                role="menuitem"
+                className="py-2 px-4 focus:bg-gray-300 hover:bg-gray-300 cursor-pointer outline-none"
+                // onMouseEnter={() => setActiveIndex(i)}
+              >
+                {item.label}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
