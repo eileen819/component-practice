@@ -11,21 +11,21 @@ export default function Modal() {
   };
   useEffect(() => {
     if (!isOpen) return;
+
     const onKeyDownClose = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
       }
     };
-    if (modalRef.current) {
-      const prev = document.activeElement as HTMLElement | null;
-      modalRef.current?.focus();
-      document.addEventListener("keydown", onKeyDownClose);
 
-      return () => {
-        document.removeEventListener("keydown", onKeyDownClose);
-        prev?.focus?.();
-      };
-    }
+    const prev = document.activeElement as HTMLElement | null;
+    modalRef.current?.focus();
+    document.addEventListener("keydown", onKeyDownClose);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDownClose);
+      prev?.focus?.();
+    };
   }, [isOpen]);
 
   return (
