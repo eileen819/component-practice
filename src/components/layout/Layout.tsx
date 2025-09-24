@@ -13,7 +13,7 @@ export default function Layout() {
         <aside className="bg-blue-300 w-48 shrink-0">
           <Nav />
         </aside>
-        <main className="bg-yellow-300 flex-1 overflow-y-auto">
+        <main className="bg-yellow-300 flex-1 overflow-y-auto p-4">
           <Outlet />
         </main>
       </div>
