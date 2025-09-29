@@ -13,6 +13,9 @@ export default function Nav() {
         <Link to="dropDown">
           <li>Day 02. DropDown</li>
         </Link>
+        <Link to="search-filter">
+          <li>Day 03. Search Filter</li>
+        </Link>
       </ul>
     </nav>
   );
