@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
+import useDebouncedValue from "./useDebouncedValue";
 
 const DATA = ["Banana", "Apple", "Grape", "Mango", "Peach", "Avocado"];
 
 export default function SearchFilter() {
-  const [query, setQuery] = useState<string>("");
+  const [rawQuery, setRawQuery] = useState<string>("");
+  const query = useDebouncedValue(rawQuery, 250);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.currentTarget.value);
+    setRawQuery(e.currentTarget.value);
   };
 
   const filteredItems = useMemo(() => {
@@ -14,7 +17,10 @@ export default function SearchFilter() {
     return DATA.filter((item) => item.toLowerCase().includes(q));
   }, [query]);
 
-  const highlightMatch = (matchedItem: string, query: string) => {
+  const highlightMatch = (
+    matchedItem: string,
+    query: string
+  ): React.ReactNode => {
     if (!query) return matchedItem;
     const matchedIdx = matchedItem.toLowerCase().indexOf(query.toLowerCase());
     if (matchedIdx === -1) return matchedItem;
@@ -25,7 +31,9 @@ export default function SearchFilter() {
     return (
       <>
         {before}
-        <mark className="text-blue-300">{match}</mark>
+        <mark className="bg-pink-200 text-blue-900 rounded px-0.5">
+          {match}
+        </mark>
         {after}
       </>
     );
@@ -33,13 +41,16 @@ export default function SearchFilter() {
 
   return (
     <div>
-      <h1 className="font-bold mb-4">Search Fruits!</h1>
+      <label htmlFor="search-fruits" className="block text-xl font-bold mb-4">
+        Search Fruits!
+      </label>
       <input
         type="text"
+        id="search-fruits"
         className="border border-gray-500 px-4 py-2 outline-none rounded-xl w-[200px]"
-        value={query}
+        value={rawQuery}
         onChange={onChange}
-        placeholder="Type filter"
+        placeholder="What do you want?"
       />
       <ul>
         {filteredItems.length === 0 ? (
