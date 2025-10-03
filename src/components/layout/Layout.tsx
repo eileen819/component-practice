@@ -10,7 +10,7 @@ export default function Layout() {
         </Link>
       </header>
       <div className="flex flex-1 min-h-0">
-        <aside className="bg-blue-300 w-48 shrink-0">
+        <aside className="bg-blue-300 w-52 shrink-0">
           <Nav />
         </aside>
         <main className="bg-yellow-300 flex-1 overflow-y-auto p-4">

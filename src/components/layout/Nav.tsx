@@ -16,6 +16,9 @@ export default function Nav() {
         <Link to="search-filter">
           <li>Day 03. Search Filter</li>
         </Link>
+        <Link to="infinite-scroll">
+          <li>Day 04. Infinite Scroll</li>
+        </Link>
       </ul>
     </nav>
   );
