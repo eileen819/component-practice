@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-
-export default function Modal() {
+export const modalCode:string = `export default function Modal() {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -73,4 +71,4 @@ export default function Modal() {
       )}
     </>
   );
-}
+}`;
