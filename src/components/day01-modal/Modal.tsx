@@ -43,7 +43,7 @@ export default function Modal() {
       </div>
       {isOpen && (
         <div
-          className="z-10 fixed inset-0 flex justify-center items-center bg-white/50"
+          className="z-10 fixed inset-0 flex justify-center items-center bg-white/80"
           onClick={closeModal}
         >
           <div
