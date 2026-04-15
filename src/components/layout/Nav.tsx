@@ -10,6 +10,15 @@ export default function Nav() {
         <Link to="modal">
           <li>Day 01. Modal</li>
         </Link>
+        <Link to="dropDown">
+          <li>Day 02. DropDown</li>
+        </Link>
+        <Link to="search-filter">
+          <li>Day 03. Search Filter</li>
+        </Link>
+        <Link to="infinite-scroll">
+          <li>Day 04. Infinite Scroll</li>
+        </Link>
       </ul>
     </nav>
   );
